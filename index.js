@@ -5,14 +5,15 @@
 import express from "express";
 import { MongoClient } from "mongodb";
 //new way import for  package type module 
+import * as dotenv from "dotenv";
+dotenv.config();
 const app = express();
 const PORT = 4000;
-
+console.log(process.env);
 //connection with mongo server
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017"; //refer compass 
-const MONGO_URL = "mongodb+srv://11m245:SIVa%402023@cluster0.xm5qkat.mongodb.net"; //online url
-//online url : "mongodb+srv://11m245:<password>@cluster0.xm5qkat.mongodb.net/?retryWrites=true&w=majority";
+const MONGO_URL = process.env.MONGO_URL //credentials hided using env package
 const client = new MongoClient(MONGO_URL); // need to import
 await client.connect(); //top level of the module await
 console.log("Mongo is Connected !");
