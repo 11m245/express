@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT; //online port
 // const PORT = 4000; //local port
-console.log(process.env);
+// console.log(process.env);  // all environmental variales listed as obj
 //connection with mongo server
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017"; //refer compass 
