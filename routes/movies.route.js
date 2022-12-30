@@ -1,5 +1,5 @@
 import express from "express";
-import { client } from "../index.js";
+import { getMovieById, insertMovies, deleteMovieById, updateMovieById, getMovies } from "../services/movies.services.js";
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.get("/:id", async function (request, response) {
     const { id } = request.params;
     // console.log(request.params, id);
     // db.movie.findOne({id:"100"}); regular db command
-    const movie = await client.db("b40wd").collection("movies").findOne({ id: id })
+    const movie = await getMovieById(id);
 
     movie ? response.send(movie) : response.status(404)
         .send({ message: "movie not found" });
@@ -34,7 +34,7 @@ router.post("/", async function (request, response) {
     const data = request.body;
     console.log(data);
     // db.movies.insertMany(data)
-    const result = await client.db("b40wd").collection("movies").insertMany(data);
+    const result = await insertMovies(data);
     response.send(result);
 });
 
@@ -45,7 +45,7 @@ router.delete("/:id", async function (request, response) {
     const { id } = request.params;
     // console.log(request.params, id);
     // db.movie.deleteOne({id:"100"}); regular db command
-    const result = await client.db("b40wd").collection("movies").deleteOne({ id: id })
+    const result = await deleteMovieById(id);
     // console.log((typeof result.deletedCount));
     // result ? response.send(result) : response.status(404)
     //     .send({ message: "movie not found" });
@@ -63,7 +63,7 @@ router.put("/:id", async function (request, response) {
     // console.log(data);
 
     // db.movie.updateOne({id:"100"},{$set:{rating:9}}); regular db command
-    const result = await client.db("b40wd").collection("movies").updateOne({ id: id }, { $set: data });
+    const result = await updateMovieById(id, data);
     response.send(result);
 });
 
@@ -76,9 +76,11 @@ router.get("/", async function (request, response) {
         request.query.rating = +request.query.rating;
     }
     console.log(request.query);
-    const movies = await client.db("b40wd").collection("movies").find(request.query).toArray();
+    const movies = await getMovies(request);
     // console.log(movies)
     response.send(movies);
 });
 
 export default router;
+
+
