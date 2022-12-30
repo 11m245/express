@@ -7,8 +7,11 @@ import { MongoClient } from "mongodb";
 //new way import for  package type module 
 import * as dotenv from "dotenv";
 dotenv.config();
+
+
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT; //online port
+// const PORT = 4000; //local port
 console.log(process.env);
 //connection with mongo server
 
