@@ -5,8 +5,7 @@ import { MongoClient } from "mongodb";
 import * as dotenv from 'dotenv';
 dotenv.config()
 
-console.log(process.env.MONGO_URL);
-
+// console.log(process.env.MONGO_URL);
 const app = express();
 const PORT = process.env.PORT;
 
